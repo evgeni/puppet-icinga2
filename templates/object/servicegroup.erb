@@ -1,0 +1,6 @@
+object ServiceGroup "<%= @servicegroup_name -%>" {
+  display_name = "<%= @display_name -%>"
+<%- if @groups -%>
+  groups = <%= @groups %>
+<%- end -%>
+}

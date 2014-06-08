@@ -1,0 +1,13 @@
+object Host "<%= @host_name -%>" {
+  import "<%= @import -%>"
+
+<%- if @address -%>
+  address = "<%= @address -%>"
+<%- end -%>
+<%- if @address6 -%>
+  address6 = "<%= @address6 -%>"
+<%- end -%>
+
+  vars.os = "<%= @os -%>"
+  vars.sla = "<%= @sla -%>"
+}
