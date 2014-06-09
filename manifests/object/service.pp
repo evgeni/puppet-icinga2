@@ -1,6 +1,6 @@
 define icinga2::object::service (
   $service_name   = $title,
-  $host_name      = false,
+  $host_name      = $::fqdn,
   $check_command  = false,
   $check_interval = "5m",
   $retry_interval = "1m",
