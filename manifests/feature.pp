@@ -3,7 +3,7 @@ define icinga2::feature(
 ) {
 
   file { "/etc/icinga2/features-enabled/${name}.conf":
-    ensure  => $ensure,
+    ensure  => $icinga2::feature::ensure,
     path    => "/etc/icinga2/features-enabled/${name}.conf",
     target  => "/etc/icinga2/features-available/${name}.conf",
     notify  => Service['icinga2'],
