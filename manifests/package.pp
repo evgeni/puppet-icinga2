@@ -16,6 +16,11 @@ class icinga2::package(
     require => Apt::Source['packages_icinga_org'],
   }
 
+  package { $icinga2::params::nrpe_plugin_package:
+    ensure  => $ensure,
+    alias   => 'nrpe-plugin',
+  }
+
   if $icinga2::frontend_package {
     package { $icinga2::frontend_package:
       ensure  => $ensure,
