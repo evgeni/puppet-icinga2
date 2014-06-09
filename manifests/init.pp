@@ -51,15 +51,4 @@ class icinga2 (
   icinga2::object::servicegroup { 'packages': }
   icinga2::object::servicegroup { 'fs': }
 
-  @@icinga2::object::host{ "${::fqdn}":
-    address => $::ipaddress,
-    address6 => $::ipaddress6,
-  }
-
-  @@icinga2::object::service{ "${::fqdn}_http":
-    service_name => "http",
-    host_name => "${::fqdn}",
-    check_command => "http",
-    vars => { foo => 'bar', bix => 'bax' }
-  }
 }
