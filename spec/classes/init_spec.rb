@@ -13,6 +13,8 @@ describe 'icinga2' do
       should contain_service('icinga2')
 
       should contain_class('icinga2::package')
+      should contain_apt__source('debmon_org')
+      should contain_apt__source('packages_icinga_org')
       should contain_package('icinga2')
       should contain_package('nagios-nrpe-plugin')
 
