@@ -15,7 +15,8 @@ class icinga2::params {
   case $::osfamily {
     Debian: {
       $icinga2_package     = 'icinga2'
-      $frontend_package    = 'icinga2-classicui'
+      $classicui_package   = 'icinga2-classicui'
+      $frontend            = 'classicui'
       $nrpe_plugin_package = 'nagios-nrpe-plugin'
       $nrpe_server_package = 'nagios-nrpe-server'
       $nrpe_service        = 'nagios-nrpe-server'

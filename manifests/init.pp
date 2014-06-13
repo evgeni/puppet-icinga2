@@ -39,13 +39,19 @@ class icinga2 (
   $ensure           = hiera('ensure', $icinga2::params::ensure),
   $ensure_enable    = hiera('ensure_enable', $icinga2::params::ensure_enable),
   $ensure_running   = hiera('ensure_running', $icinga2::params::ensure_running),
-  $frontend_package = hiera('icinga2::frontend_package', $icinga2::params::frontend_package),
+  $frontend         = hiera('icinga2::frontend', $icinga2::params::frontend),
 ) inherits icinga2::params {
 
   include icinga2::package
   include icinga2::service
   include icinga2::config
 
+  case $frontend {
+    classicui: {
+      include icinga2::classicui
+    }
+    default: { }
+  }
   icinga2::object::servicegroup { 'libs': }
   icinga2::object::servicegroup { 'kernel': }
   icinga2::object::servicegroup { 'packages': }

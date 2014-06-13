@@ -20,6 +20,26 @@ describe 'icinga2' do
 
       should contain_file('/etc/icinga2/conf.d/puppet/')
     }
+    context 'all defaults' do
+      it {
+        should contain_class('icinga2::classicui')
+        should contain_package('icinga2-classicui')
+      }
+    end
+    context 'frontend => classicui' do
+      let (:params) { { :frontend => 'classicui' } }
+      it {
+        should contain_class('icinga2::classicui')
+        should contain_package('icinga2-classicui')
+      }
+    end
+    context 'frontend => ""' do
+      let (:params) { { :frontend => '' } }
+      it {
+        should_not contain_class('icinga2::classicui')
+        should_not contain_package('icinga2-classicui')
+      }
+    end
   end
   describe 'on other systems' do
     it {
