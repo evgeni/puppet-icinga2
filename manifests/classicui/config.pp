@@ -2,7 +2,7 @@ class icinga2::classicui::config(
   $ensure = hiera('ensure', $icinga2::params::ensure),
   ) inherits icinga2::params {
 
-  $frontend_users = $icinga2::frontend_users
+  $frontend_users = $icinga2::classicui::frontend_users
 
   file { '/etc/icinga2/classicui/htpasswd.users':
     ensure  => $ensure,
