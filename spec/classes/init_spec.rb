@@ -24,6 +24,7 @@ describe 'icinga2' do
       it {
         should contain_class('icinga2::classicui')
         should contain_package('icinga2-classicui')
+	should contain_file('/etc/icinga2/classicui/htpasswd.users').with_content(/icingaadmin/)
       }
     end
     context 'frontend => classicui' do

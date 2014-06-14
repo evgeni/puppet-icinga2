@@ -17,6 +17,7 @@ class icinga2::params {
       $icinga2_package     = 'icinga2'
       $classicui_package   = 'icinga2-classicui'
       $frontend            = 'classicui'
+      $frontend_users      = { icingaadmin => '$apr1$QjQi49DK$R2n42by8lpmaMP6D69gki1' }
       $nrpe_plugin_package = 'nagios-nrpe-plugin'
       $nrpe_server_package = 'nagios-nrpe-server'
       $nrpe_service        = 'nagios-nrpe-server'
