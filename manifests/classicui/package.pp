@@ -4,7 +4,7 @@ class icinga2::classicui::package(
 
   package { $icinga2::params::classicui_package:
     ensure  => $ensure,
-    require => Apt::Source['packages_icinga_org'],
+    require => Apt::Source['debmon_org'],
   }
 
 }
