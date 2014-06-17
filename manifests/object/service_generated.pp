@@ -6,9 +6,9 @@
 
 define icinga2::object::service_generated($config){
   @@icinga2::object::service { "${::fqdn}_${name}":
-    service_name  => $name,
+    service_name  => $config[$name]['service_name'],
     host_name     => $::fqdn,
-    check_command => $config[$name]['command'],
+    check_command => $config[$name]['check_command'],
     vars          => $config[$name]['vars'],
   }
 }
