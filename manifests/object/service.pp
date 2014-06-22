@@ -9,6 +9,17 @@ define icinga2::object::service (
   $target         = '/etc/icinga2/conf.d/puppet/services.conf',
   ) {
 
+  if is_string($groups) {
+    if $groups =~ /\[.*\]/ {
+      $s_groups = $groups
+    }
+    else {
+      $s_groups = "[ \"${groups}\" ]"
+    }
+  }
+  else {
+    $s_groups = false
+  }
   if ! defined(Concat[$target]) {
     concat { $target:
       ensure         => present,
