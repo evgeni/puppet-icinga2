@@ -1,4 +1,4 @@
-# == Class: icinga::host
+# == Class: icinga2::host
 #
 # Install and configure an Icinga client: a NRPE enabled host.
 # This will export several nagios_* ressources to be collected by the
@@ -10,7 +10,7 @@
 #
 # === Examples
 #
-#  class { icinga::host:
+#  class { icinga2::host:
 #  }
 #
 # === Authors
