@@ -51,6 +51,9 @@ class icinga2 (
     classicui: {
       include icinga2::classicui
     }
+    web: {
+      include icinga2::web
+    }
     default: { }
   }
   icinga2::object::servicegroup { 'libs': }

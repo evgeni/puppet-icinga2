@@ -16,6 +16,7 @@ class icinga2::params {
     Debian: {
       $icinga2_package     = 'icinga2'
       $classicui_package   = 'icinga2-classicui'
+      $web_package         = 'icinga-web'
       $frontend            = 'classicui'
       $frontend_users      = { icingaadmin => '$apr1$QjQi49DK$R2n42by8lpmaMP6D69gki1' }
       $nrpe_plugin_package = 'nagios-nrpe-plugin'

@@ -30,6 +30,12 @@ describe 'icinga2' do
         should contain_class('icinga2::classicui')
       }
     end
+    context 'frontend => web' do
+      let (:params) { { :frontend => 'web' } }
+      it {
+        should contain_class('icinga2::web')
+      }
+    end
     context 'frontend => ""' do
       let (:params) { { :frontend => '' } }
       it {
