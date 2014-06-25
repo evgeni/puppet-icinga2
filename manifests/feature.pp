@@ -1,9 +1,9 @@
 define icinga2::feature(
-  ensure => 'link'
+  $ensure = 'link'
 ) {
 
   file { "/etc/icinga2/features-enabled/${name}.conf":
-    ensure  => $icinga2::feature::ensure,
+    ensure  => $ensure,
     path    => "/etc/icinga2/features-enabled/${name}.conf",
     target  => "/etc/icinga2/features-available/${name}.conf",
     notify  => Service['icinga2'],
