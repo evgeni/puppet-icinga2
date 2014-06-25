@@ -4,7 +4,7 @@ class icinga2::web::package(
 
   package { $icinga2::params::web_package:
     ensure  => $ensure,
-    require => Apt::Source['debmon_org'],
+    require => [ Apt::Source['debmon_org'], Class['icinga2::ido::config'] ],
   }
 
 }
