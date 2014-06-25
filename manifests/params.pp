@@ -19,6 +19,11 @@ class icinga2::params {
       $web_package         = 'icinga-web'
       $frontend            = 'classicui'
       $frontend_users      = { icingaadmin => '$apr1$QjQi49DK$R2n42by8lpmaMP6D69gki1' }
+      $backend             = 'pgsql'
+      $ido_mysql_package   = 'icinga2-ido-mysql'
+      $ido_pgsql_package   = 'icinga2-ido-pgsql'
+      $ido_mysql_module    = 'ido-mysql'
+      $ido_pgsql_module    = 'ido-pgsql'
       $nrpe_plugin_package = 'nagios-nrpe-plugin'
       $nrpe_server_package = 'nagios-nrpe-server'
       $nrpe_service        = 'nagios-nrpe-server'

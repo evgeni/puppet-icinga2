@@ -41,6 +41,7 @@ class icinga2 (
   $ensure_running   = hiera('ensure_running', $icinga2::params::ensure_running),
   $frontend         = hiera('icinga2::frontend', $icinga2::params::frontend),
   $frontend_users   = hiera('icinga2::frontend_users', $icinga2::params::frontend_users),
+  $backend          = hiera('icinga2::backend', $icinga2::params::backend),
 ) inherits icinga2::params {
 
   include icinga2::package
@@ -52,6 +53,7 @@ class icinga2 (
       include icinga2::classicui
     }
     web: {
+      include icinga2::ido
       include icinga2::web
     }
     default: { }

@@ -30,9 +30,27 @@ describe 'icinga2' do
         should contain_class('icinga2::classicui')
       }
     end
-    context 'frontend => web' do
+    context 'frontend => web, default backend' do
       let (:params) { { :frontend => 'web' } }
       it {
+        should contain_class('icinga2::ido')
+        should contain_package('icinga2-ido-pgsql')
+        should contain_class('icinga2::web')
+      }
+    end
+    context 'frontend => web, backend => mysql' do
+      let (:params) { { :frontend => 'web', :backend => 'mysql' } }
+      it {
+        should contain_class('icinga2::ido')
+        should contain_package('icinga2-ido-mysql')
+        should contain_class('icinga2::web')
+      }
+    end
+    context 'frontend => web, backend => pgsql' do
+      let (:params) { { :frontend => 'web', :backend => 'pgsql' } }
+      it {
+        should contain_class('icinga2::ido')
+        should contain_package('icinga2-ido-pgsql')
         should contain_class('icinga2::web')
       }
     end
