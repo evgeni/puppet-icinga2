@@ -15,65 +15,67 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module installs and configures Icinga2 servers and clients on Debian.
+It's designed to work with Puppet 2.7+.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+Using this module, you can install a full Icinga2 stack, with the main
+daemon, IDO backends and various interfaces. It will install packages from
+the [debmon.org](http://debmon.org) repository, configure the needed services
+and collect exported resources (hosts, services, etc) from clients.
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+On clients, this module will install and configure NRPE and export
+various services checks for the server to collect.
 
 ## Setup
 
 ### What icinga2 affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+On an Icinga2 server:
 
-### Setup Requirements **OPTIONAL**
+* Add the [debmon.org](http://debmon.org) repository
+* Installs the icinga2 and nrpe-plugin packages
+* Sets up the icinga2 service
+* Collects exported Icinga2 resources into /etc/icinga2/conf.d/puppet/
+* Installs and configures either icinga2-classicui or icinga-web as a frontend
+* In the case of icinga-web, icinga2-ido is installed and configured
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+On an Icinga2 client:
+
+* Installs the nrpe-server package
+* Configures the nrpe-server to accept connections from the Icinga2 server
+* Installs several nrpe checks
+* Exports the checks as Icinga2 resources to be collected by the server
+
+### Setup Requirements
+
+You should have `pluginsync = true` and `storeconfigs = true` in your `puppet.conf`.
 
 ### Beginning with icinga2
 
-The very basic steps needed for a user to get the module up and running.
+When you want to install an Icinga2 server, a `include icinga2` should be enough.
+For a client, use `include icinga2::host`.
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+Configuration can be done using parameters to the classes, but using hiera is preferred.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
+FIXME: Put the classes, types, and resources for customizing, configuring, and doing
 the fancy stuff with your module here.
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
+FIXME: Here, list the classes, types, providers, facts, etc contained in your module.
 This section should include all of the under-the-hood workings of your module so
 people know what the module is touching on their system but don't need to mess
 with things. (We are working on automating this section!)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Puppet 2.7+ and Debian Wheezy only currently, more to come.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+Pull-requests are awesome. They are even more awesome if they include tests
+for the functionality you add or alter.
