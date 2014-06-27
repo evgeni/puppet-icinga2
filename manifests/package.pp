@@ -21,12 +21,4 @@ class icinga2::package(
     alias   => 'nrpe-plugin',
   }
 
-  if $icinga2::frontend_package {
-    package { $icinga2::frontend_package:
-      ensure  => $ensure,
-      alias   => 'icinga2-frontend',
-      require => Apt::Source['debmon_org'],
-    }
-  }
-
 }
