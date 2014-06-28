@@ -1,0 +1,3 @@
+<% @a_disks.each do |d| -%>
+command[check_ide_smart_<%= d %>]=sudo /usr/lib/nagios/plugins/check_ide_smart -n /dev/<%= d %>
+<% end -%>

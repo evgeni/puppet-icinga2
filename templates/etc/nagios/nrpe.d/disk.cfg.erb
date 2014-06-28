@@ -1,0 +1,7 @@
+<% @a_mounts.each do |p| -%>
+  <%- if @disk_limits.key?(p) -%>
+command[check_disk_<%= p %>]=/usr/lib/nagios/plugins/check_disk -w <%= @disk_limits[p].key?('warn') ? @disk_limits[p]['warn'] : '20%' %> -c <%= @disk_limits[p].key?('crit') ? @disk_limits[p]['crit'] : '10%' %> -W <%= @disk_limits[p].key?('iwarn') ? @disk_limits[p]['iwarn'] : '20%' %> -K <%= @disk_limits[p].key?('icrit') ? @disk_limits[p]['icrit'] : '10%' %> -p <%= p %>
+  <%- else -%>
+command[check_disk_<%= p %>]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -W 20% -K 10% -p <%= p %>
+  <%- end -%>
+<% end -%>
