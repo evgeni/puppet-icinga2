@@ -23,6 +23,8 @@
 #
 class icinga2::host {
 
+  include icinga2::nrpe
+
   $ensure = present
 
   @@icinga2::object::host{ $::fqdn:
@@ -46,11 +48,23 @@ class icinga2::host {
     }
   }
 
-  @@icinga2::object::service { "${::fqdn}_packages":
-    service_name  => 'packages',
-    host_name     => $::fqdn,
-    check_command => 'nrpe',
-    vars          => { nrpe_command => 'check_packages'},
+  if $::osfamily == 'Debian' {
+    @@icinga2::object::service { "${::fqdn}_packages":
+      service_name  => 'packages',
+      host_name     => $::fqdn,
+      check_command => 'nrpe',
+      vars          => { nrpe_command => 'check_packages'},
+    }
+
+    $check_packages_ignore = hiera_array('icinga::host::check_packages_ignore', [])
+
+    file { '/etc/nagios-plugins/obsolete-packages-ignore.d/puppet-icinga2-ignores':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package['nagios-plugins-contrib'],
+      content => template('icinga2/etc/nagios-plugins/obsolete-packages-ignore.d/puppet-icinga-ignores.erb'),
+    }
   }
 
   @@icinga2::object::service { "${::fqdn}_entropy":
@@ -61,6 +75,10 @@ class icinga2::host {
   }
 
   if $::virtual != 'openvzve' {
+    icinga2::nrpe::command { 'check_ntp_peer':
+      command_line => '/usr/lib/nagios/plugins/check_ntp_peer -H localhost -w 1 -c 2'
+    }
+
     @@icinga2::object::service { "${::fqdn}_ntp":
       service_name  => 'ntp',
       host_name     => $::fqdn,
@@ -72,6 +90,15 @@ class icinga2::host {
   $a_mounts = split($::mounts, ',')
   $disk_limits = hiera('icinga2::host::disk_limits', {})
 
+  file { "${icinga2::params::nrpe_d_folder}/disk.cfg":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    notify  => Service[$icinga2::params::nrpe_service],
+    require => File[$icinga2::params::nrpe_d_folder],
+    content => template('icinga2/etc/nagios/nrpe.d/disk.cfg.erb'),
+  }
+
   icinga2::object::service_parametrized { $a_mounts:
     check_command => 'nrpe',
     command       => 'check_disk_',
@@ -82,6 +109,14 @@ class icinga2::host {
   if $::virtual == 'physical' {
 
     $a_disks = split($::disks, ',')
+    file { "${icinga2::params::nrpe_d_folder}/smart.cfg":
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      notify  => Service[$icinga2::params::nrpe_service],
+      require => File[$icinga2::params::nrpe_d_folder],
+      content => template('icinga2/etc/nagios/nrpe.d/smart.cfg.erb'),
+    }
     icinga2::object::service_parametrized { $a_disks:
       check_command => 'nrpe',
       command       => 'check_ide_smart_',
