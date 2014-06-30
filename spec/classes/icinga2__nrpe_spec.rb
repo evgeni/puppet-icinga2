@@ -11,6 +11,9 @@ describe 'icinga2::nrpe' do
       should contain_class('icinga2::nrpe::service')
       should contain_package('nagios-nrpe-server')
       should contain_service('nagios-nrpe-server')
+      should contain_package('nagios-plugins-basic')
+      should contain_package('nagios-plugins-standard')
+      should contain_package('nagios-plugins-contrib')
     }
   end
 end
