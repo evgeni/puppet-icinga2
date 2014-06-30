@@ -10,15 +10,19 @@ class icinga2::package(
     key_source => 'http://debmon.org/debmon/repo.key',
   }
 
-  package { $icinga2::params::icinga2_package:
+  ensure_packages($icinga2::params::icinga2_package,
+    {
     ensure  => $ensure,
     alias   => 'icinga2',
     require => Apt::Source['debmon_org'],
-  }
+    }
+  )
 
-  package { $icinga2::params::nrpe_plugin_package:
+  ensure_packages($icinga2::params::nrpe_plugin_package,
+    {
     ensure  => $ensure,
     alias   => 'nrpe-plugin',
-  }
+    }
+  )
 
 }
