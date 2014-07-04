@@ -1,0 +1,2 @@
+nagios    ALL = NOPASSWD: /usr/lib/nagios/plugins/check_ide_smart
+nagios    ALL = NOPASSWD: /usr/lib/nagios/plugins/check_libs
