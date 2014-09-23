@@ -33,6 +33,8 @@ class icinga2::params {
                               'nagios-plugins-standard',
                               'nagios-plugins-contrib'
                               ]
+      $lmsensors_package   = 'lm-sensors'
+      $binutils_package    = 'binutils'
     }
     default: {
       fail('This module only supports Debian-based systems')
