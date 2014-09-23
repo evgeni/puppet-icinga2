@@ -64,6 +64,47 @@ Configuration can be done using parameters to the classes, but using hiera is pr
 FIXME: Put the classes, types, and resources for customizing, configuring, and doing
 the fancy stuff with your module here.
 
+### Hiera
+
+This module can be fully configured via Hiera. Examples for server and client follow:
+
+#### server.yaml
+
+    # Install Icinga2 ClassicUI ("classicui") or Icinga Web ("web") as the frontend
+    icinga2::frontend: classicui
+    # Wich users to create for the frontend
+    icinga2::frontend_users:
+      icingaadmin: "<some-htpasswd-hash>"
+      otheruser: "<different-hash>"
+    # In the case of Icinga Web, which IDO backend should be used, PostgreSQL ("pgsql") or MySQL ("mysql")
+    icinga2::backend: pgsql
+
+#### client.yaml
+
+    # Which hosts are allowed to query via NRPE
+    icinga2::nrpe::allowed_hosts:
+      - 127.0.0.1
+      - 192.0.2.123
+
+    # Which packages should be ignored by the check_packages check
+    icinga2::host::check_packages_ignore:
+      - example
+      - hello
+
+    # Override disk warning/critical limits for a specific mount point
+    icinga2::host::disk_limits:
+      /srv:
+        warn: 15%
+        crit: 10%
+
+    # Additional services for the host
+    icinga2::host::services:
+      <puppet-internal-name>: # must be unique
+        service_name: mysql
+        check_command: nrpe
+        vars:
+          nrpe_command: check_mysql
+
 ## Reference
 
 FIXME: Here, list the classes, types, providers, facts, etc contained in your module.
