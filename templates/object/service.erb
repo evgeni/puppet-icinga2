@@ -9,4 +9,5 @@ object Service "<%= @service_name -%>" {
 <% @vars.each do |key, val| -%>
   vars.<%= key %> = "<%= val -%>"
 <% end -%>
+  vars.sla = "<%= @sla -%>"
 }

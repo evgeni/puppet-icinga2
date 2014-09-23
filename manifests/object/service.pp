@@ -5,6 +5,7 @@ define icinga2::object::service (
   $check_interval = '5m',
   $retry_interval = '1m',
   $groups         = false,
+  $sla            = '24x7',
   $vars           = {},
   $target         = '/etc/icinga2/conf.d/puppet/services.conf',
   ) {
