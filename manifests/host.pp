@@ -40,7 +40,7 @@ class icinga2::host {
   }
 
   if $::virtual != 'openvzve' {
-    ensure_packages($icinga::params::binutils_package)
+    ensure_packages($icinga2::params::binutils_package)
     @@icinga2::object::service { "${::fqdn}_kernel":
       service_name  => 'kernel',
       host_name     => $::fqdn,
@@ -124,7 +124,7 @@ class icinga2::host {
       groups        => 'disk',
     }
 
-    ensure_packages($icinga::params::lmsensors_package)
+    ensure_packages($icinga2::params::lmsensors_package)
     @@icinga2::object::service { "${::fqdn}_sensors":
       service_name  => 'sensors',
       host_name     => $::fqdn,
