@@ -21,15 +21,18 @@
 #
 # Copyright 2014 Evgeni Golov, unless otherwise noted.
 #
-class icinga2::host {
+class icinga2::host (
+  address = $::ipaddress,
+  address6 = $::ipaddress6,
+) inherits icinga2::params {
 
   include icinga2::nrpe
 
   $ensure = present
 
   @@icinga2::object::host{ $::fqdn:
-    address  => $::ipaddress,
-    address6 => $::ipaddress6,
+    address  => $address,
+    address6 => $address6,
   }
 
   @@icinga2::object::service { "${::fqdn}_libs":
