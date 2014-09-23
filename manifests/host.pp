@@ -22,8 +22,8 @@
 # Copyright 2014 Evgeni Golov, unless otherwise noted.
 #
 class icinga2::host (
-  address = $::ipaddress,
-  address6 = $::ipaddress6,
+  $address = $::ipaddress,
+  $address6 = $::ipaddress6,
 ) inherits icinga2::params {
 
   include icinga2::nrpe
