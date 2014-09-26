@@ -60,7 +60,7 @@ class icinga2::host (
       vars          => { nrpe_command => 'check_packages'},
     }
 
-    $check_packages_ignore = hiera_array('icinga::host::check_packages_ignore', [])
+    $check_packages_ignore = hiera_array('icinga2::host::check_packages_ignore', [])
 
     file { '/etc/nagios-plugins/obsolete-packages-ignore.d/puppet-icinga2-ignores':
       owner   => 'root',
