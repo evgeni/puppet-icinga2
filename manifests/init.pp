@@ -63,4 +63,32 @@ class icinga2 (
   icinga2::object::servicegroup { 'packages': }
   icinga2::object::servicegroup { 'fs': }
 
+  icinga2::object::servicegroup { 'cert': }
+
+  icinga2::object::command { 'ssl_cert':
+    command_line => 'PluginDir + "/check_ssl_cert"',
+    args         => {
+      "-H" => '$ssl_cert_hostname$',
+      "-P" => '$ssl_cert_protocol$',
+      "-p" => '$ssl_cert_port$',
+      "-w" => '$ssl_cert_warn$',
+      "-c" => '$ssl_cert_crit$',
+      "-r" => '$ssl_cert_rootcert$',
+    },
+    vars         => {
+      "ssl_cert_warn"     => "14",
+      "ssl_cert_crit"     => "7",
+      "ssl_cert_rootcert" => "/etc/ssl/certs/ca-certificates.crt",
+    },
+  }
+
+  icinga2::object::command { 'jabber':
+    command_line => 'PluginDir + "/check_jabber"',
+    args         => {
+      "-H" => '$jabber_hostname$',
+    },
+    vars         => {
+      "jabber_hostname"     => '$address$',
+    },
+  }
 }
