@@ -1,0 +1,15 @@
+object CheckCommand "<%= @command_name -%>" {
+  import "plugin-check-command"
+
+  command = [ <%= @command_line -%> ]
+
+  arguments = {
+<% @args.each do |key, val| -%>
+  "<%= key %>" = "<%= val -%>"
+<% end -%>
+  }
+
+<% @vars.each do |key, val| -%>
+  vars.<%= key %> = "<%= val -%>"
+<% end -%>
+}
