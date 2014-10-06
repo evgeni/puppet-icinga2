@@ -24,6 +24,7 @@
 class icinga2::host (
   $address = $::ipaddress,
   $address6 = $::ipaddress6,
+  $check_disk_ignore = hiera_array('icinga2::host::check_disk_ignore', []),
 ) inherits icinga2::params {
 
   include icinga2::nrpe
@@ -91,7 +92,7 @@ class icinga2::host (
     }
   }
 
-  $a_mounts = split($::mounts, ',')
+  $a_mounts = difference(split($::mounts, ','), $check_disk_ignore)
   $disk_limits = hiera('icinga2::host::disk_limits', {})
 
   file { "${icinga2::params::nrpe_d_folder}/disk.cfg":
