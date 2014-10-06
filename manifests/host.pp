@@ -72,14 +72,15 @@ class icinga2::host (
     }
   }
 
-  @@icinga2::object::service { "${::fqdn}_entropy":
-    service_name  => 'entropy',
-    host_name     => $::fqdn,
-    check_command => 'nrpe',
-    vars          => { nrpe_command => 'check_entropy'},
-  }
-
   if $::virtual != 'openvzve' {
+
+    @@icinga2::object::service { "${::fqdn}_entropy":
+      service_name  => 'entropy',
+      host_name     => $::fqdn,
+      check_command => 'nrpe',
+      vars          => { nrpe_command => 'check_entropy'},
+    }
+
     icinga2::nrpe::command { 'check_ntp_peer':
       command_line => '/usr/lib/nagios/plugins/check_ntp_peer -H localhost -w 1 -c 2'
     }
