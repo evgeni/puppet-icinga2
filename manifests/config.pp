@@ -23,4 +23,11 @@ class icinga2::config() {
     notify => [Service['icinga2']],
   }
 
+  Icinga2::Object::Servicegroup <<| |>> {
+    notify => [Service['icinga2']],
+  }
+
+  Icinga2::Object::Dependency <<| |>> {
+    notify => [Service['icinga2']],
+  }
 }
