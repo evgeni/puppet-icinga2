@@ -1,0 +1,23 @@
+object Dependency "<%= @dependency_name -%>" {
+  parent_host_name = "<%= @parent_host_name %>"
+  
+<%- if @parent_service_name -%>
+  parent_service_name = "<%= @parent_service_name %>"
+<%- end -%>
+<%- if @child_host_name -%>
+  child_host_name = "<%= @child_host_name %>"
+<%- end -%>
+<%- if @child_service_name -%>
+  child_service_name = "<%= @child_service_name %>"
+<%- end -%>
+<%- if @period -%>
+  period = <%= @period %>
+<%- end -%>
+<%- if @states -%>
+  states = <%= @states %>
+<%- end -%>
+
+  disable_checks = <%= @disable_checks %>
+  disable_notifications = <%= @disable_notifications %>
+}
+
